@@ -1,6 +1,7 @@
 package com.example.myplayground.presenter
 
 import androidx.compose.runtime.Composable
+import com.example.list.api.ListScreen
 import com.example.myplayground.model.Menu
 import com.slack.circuit.runtime.CircuitContext
 import com.slack.circuit.runtime.CircuitUiEvent
@@ -19,15 +20,18 @@ data object MainScreen : Screen {
     }
 }
 
-class MainScreenPresenter : Presenter<MainScreen.State> {
+class MainScreenPresenter(
+    private val navigator: Navigator
+) : Presenter<MainScreen.State> {
 
     @Composable
     override fun present(): MainScreen.State {
         return MainScreen.State(
             menus = Menu.entries
         ) { event ->
-            when (event) {
-                is MainScreen.Event.MenuClicked -> println("testing andre getting clicked ${event.menu.content}")
+            when  {
+                event is MainScreen.Event.MenuClicked && event.menu == Menu.FETCH_EXAMPLE ->
+                    navigator.goTo(ListScreen)
             }
         }
     }
@@ -38,7 +42,7 @@ class MainScreenPresenter : Presenter<MainScreen.State> {
             navigator: Navigator,
             context: CircuitContext
         ): Presenter<*>? = when (screen) {
-            is MainScreen -> MainScreenPresenter()
+            is MainScreen -> MainScreenPresenter(navigator)
             else -> null
         }
     }

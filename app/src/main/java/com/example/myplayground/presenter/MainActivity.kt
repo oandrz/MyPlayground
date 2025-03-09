@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import com.example.list.api.ListScreenPresenter
+import com.example.list.api.ListScreenUI
 import com.example.myplayground.ui.theme.MyPlaygroundTheme
 import com.slack.circuit.backstack.rememberSaveableBackStack
 import com.slack.circuit.foundation.Circuit
@@ -17,7 +19,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         val circuit = Circuit.Builder()
             .addUiFactory(MainUIFactory())
+            .addUiFactory(ListScreenUI.Factory())
             .addPresenterFactory(MainScreenPresenter.Factory())
+            .addPresenterFactory(ListScreenPresenter.Factory())
             .build()
         setContent {
             MyPlaygroundTheme {

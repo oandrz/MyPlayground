@@ -78,7 +78,9 @@ fun GreetingPreview() {
 
 class MainUIFactory : Ui.Factory {
     override fun create(screen: Screen, context: CircuitContext): Ui<*>? = when (screen) {
-        is MainScreen -> ui<MainScreen.State> { state, modifier ->  MainUIComposable(state, modifier) }
+        is MainScreen -> ui<MainScreen.State> { state, modifier ->
+            MainUIComposable(state, modifier)
+        }
         else -> null
     }
 }
