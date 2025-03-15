@@ -22,3 +22,5 @@ dependencyResolutionManagement {
 rootProject.name = "MyPlayground"
 include(":app")
 include(":list")
+include(":core")
+include(":core-api")

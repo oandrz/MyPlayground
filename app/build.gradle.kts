@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.parcelize)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.kapt)
 }
 
 android {
@@ -43,6 +45,10 @@ android {
 
 dependencies {
     implementation(project(":list"))
+    api(project(":core"))
+
+    implementation(libs.hilt)
+    kapt(libs.hiltCompiler)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

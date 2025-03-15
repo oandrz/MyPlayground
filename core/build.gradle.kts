@@ -1,14 +1,12 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.parcelize)
-    alias(libs.plugins.kapt)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.kapt)
 }
 
 android {
-    namespace = "com.example.list"
+    namespace = "com.example.core"
     compileSdk = 35
 
     defaultConfig {
@@ -37,29 +35,13 @@ android {
 }
 
 dependencies {
-    implementation(project(":core-api"))
+    api(project(":core-api"))
 
     implementation(libs.hilt)
     kapt(libs.hiltCompiler)
 
-    implementation(libs.circuit)
-
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
-
-    testImplementation(libs.junit)
-
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
-}
-
-kapt {
-    correctErrorTypes = true
+    implementation(libs.retrofit)
+    implementation(libs.okHttp)
+    implementation(libs.gson)
+    implementation(libs.retrofitGsonConverter)
 }
