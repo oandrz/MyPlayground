@@ -36,11 +36,18 @@ android {
     }
 }
 
+hilt {
+    enableAggregatingTask = true
+}
+
 dependencies {
     implementation(project(":core-api"))
 
     implementation(libs.hilt)
     kapt(libs.hiltCompiler)
+
+    implementation(libs.retrofit)
+    implementation(libs.retrofitGsonConverter)
 
     implementation(libs.circuit)
 
