@@ -1,7 +1,7 @@
 package com.example.list
 
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.list.api.ListScreen
 import com.example.list.api.ListScreenPresenter
 import com.example.list.data.ListScreenRepository
@@ -13,11 +13,7 @@ internal class ListScreenPresenterImpl(
 
     @Composable
     override fun present(): ListScreen.State {
-        val results = listScreenRepository.fetchPokemonList().collectAsStateWithLifecycle(
-            emptyList()
-        )
-        return ListScreen.State(results.value.map { it.name }) {
-
-        }
+        val results = listScreenRepository.getPokemonPager().collectAsLazyPagingItems()
+        return ListScreen.State(results) { }
     }
 }

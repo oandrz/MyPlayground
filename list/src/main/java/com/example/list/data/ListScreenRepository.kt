@@ -1,34 +1,26 @@
 package com.example.list.data
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.example.core_api.MyPlaygroundNetwork
+import com.example.list.data.page.PAGE_SIZE
+import com.example.list.data.page.PokemonPagingSource
+import com.example.list.data.remote.PokemonService
 import com.example.list.domain.Pokemon
-import com.example.list.domain.PokemonDetail
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 interface ListScreenRepository {
-    fun fetchPokemonList(): Flow<List<Pokemon>>
+    fun getPokemonPager(): Flow<PagingData<Pokemon>>
 }
 
 internal class ListScreenRepositoryImpl @Inject constructor(
     private val myPlaygroundNetwork: MyPlaygroundNetwork
 ) : ListScreenRepository {
-
-    override fun fetchPokemonList(): Flow<List<Pokemon>> = flow {
-        val response = getPokemonService().fetchListOfPokemon()
-        emit(
-            response.results.map {
-                Pokemon(
-                    name = it.name,
-                    pokemonDetail = PokemonDetail(
-                        url = it.url
-                    )
-                )
-            }
-        )
-    }
-
-    private fun getPokemonService(): PokemonService =
-        myPlaygroundNetwork.fromService(PokemonService::class.java)
+    override fun getPokemonPager(): Flow<PagingData<Pokemon>> = Pager(
+        config = PagingConfig(pageSize = PAGE_SIZE)
+    ) {
+        PokemonPagingSource(myPlaygroundNetwork.fromService(PokemonService::class.java))
+    }.flow
 }

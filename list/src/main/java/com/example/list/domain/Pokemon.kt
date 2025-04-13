@@ -6,5 +6,16 @@ data class Pokemon(
 )
 
 data class PokemonDetail(
-    val url: String
+    val frontSprite: PokemonSprite,
+    val type: PokemonType
 )
+
+data class PokemonSprite(
+    val frontDefault: String
+)
+
+data class PokemonType(
+    val slot: Int,
+    val name: String
+)
+

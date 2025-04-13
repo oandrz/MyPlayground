@@ -61,6 +61,10 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
 
+    implementation(libs.pagingCompose)
+    implementation(libs.pagingRuntime)
+    implementation(libs.coil)
+
     testImplementation(libs.junit)
 
     debugImplementation(libs.androidx.ui.tooling)

@@ -1,7 +1,9 @@
 package com.example.list.api
 
+import androidx.paging.compose.LazyPagingItems
 import com.example.list.ListScreenPresenterImpl
 import com.example.list.data.ListScreenRepository
+import com.example.list.domain.Pokemon
 import com.slack.circuit.runtime.CircuitContext
 import com.slack.circuit.runtime.CircuitUiEvent
 import com.slack.circuit.runtime.CircuitUiState
@@ -14,9 +16,11 @@ import javax.inject.Inject
 @Parcelize
 data object ListScreen : Screen {
     data class State(
-        val results: List<String>,
+        val results: LazyPagingItems<Pokemon>,
         val eventSink: (Event) -> Unit
     ) : CircuitUiState
+
+
     sealed interface Event : CircuitUiEvent {
 
     }
